@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 2ad4d107f4077e8499cb124ea32365d3
+labels:
+- AStar
+- A*
+- Pathfinding
+- Dynamic
+- Agent
+- AStar2D
+- Multithreading
+- Examples
+- Grid
+- Tile
+timeCreated: 1472987813
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: e7aa4be254eecd54380d08bf8c2f7dc1
+labels:
+- Tile
+- Grid
+- Examples
+- Multithreading
+- AStar2D
+- Agent
+- Dynamic
+- Pathfinding
+- A*
+- AStar
+timeCreated: 1473518930
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
