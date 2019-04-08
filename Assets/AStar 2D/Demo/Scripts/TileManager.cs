@@ -113,6 +113,8 @@ namespace AStar_2D.Demo
             actions.Add("Elegir Destino", destinoCity);
             actions.Add("Mostrar telaraña", showWeb);
             actions.Add("Ocultar telaraña", hideWeb);
+            actions.Add("Desactivar Diagonales", deactivateDiagonals);
+            actions.Add("Activar Diagonales", activateDiagonals);
             for (int i = 1; i < 30; i++)
             {
                 dic.Add(Convert.ToString(i));
@@ -184,6 +186,34 @@ namespace AStar_2D.Demo
             keywordRecognizer2.OnPhraseRecognized -= RecognizedHideWeb;
         }
 
+        private void RecognizedDeactivateDiagonals(PhraseRecognizedEventArgs speech)
+        {
+            keywordRecognizer2.Stop();
+            Debug.Log(speech.text);
+            for (int i = 0; i < gridX; i++)
+            {
+                for (int j = 0; j < gridY; j++)
+                {
+                    tiles[i, j].diagonalMode = PathNodeDiagonalMode.NoDiagonal;
+                }
+            }
+            keywordRecognizer2.OnPhraseRecognized -= RecognizedDeactivateDiagonals;
+        }
+
+        private void RecognizedActivateDiagonals(PhraseRecognizedEventArgs speech)
+        {
+            keywordRecognizer2.Stop();
+            Debug.Log(speech.text);
+            for (int i = 0; i < gridX; i++)
+            {
+                for (int j = 0; j < gridY; j++)
+                {
+                    tiles[i, j].diagonalMode = PathNodeDiagonalMode.Diagonal;
+                }
+            }
+            keywordRecognizer2.OnPhraseRecognized -= RecognizedActivateDiagonals;
+        }
+
         private void Move()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
@@ -213,6 +243,20 @@ namespace AStar_2D.Demo
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
             keywordRecognizer2.OnPhraseRecognized += RecognizedHideWeb;
+            keywordRecognizer2.Start();
+        }
+
+        private void deactivateDiagonals()
+        {
+            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
+            keywordRecognizer2.OnPhraseRecognized += RecognizedDeactivateDiagonals;
+            keywordRecognizer2.Start();
+        }
+
+        private void activateDiagonals()
+        {
+            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
+            keywordRecognizer2.OnPhraseRecognized += RecognizedActivateDiagonals;
             keywordRecognizer2.Start();
         }
 
