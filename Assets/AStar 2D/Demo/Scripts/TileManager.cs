@@ -97,7 +97,17 @@ namespace AStar_2D.Demo
             // Pass the arry to the search grid
             constructGrid(tiles);
 
-            blocked = Resources.Load<Sprite>("blocked");              int percentage = (int)((gridY * gridX) * (0.25));             for (int i = 0; i < percentage; i++)             {                 int x = (int)UnityEngine.Random.Range(0, gridX);                 int y = (int)UnityEngine.Random.Range(0, gridY);                 tiles[x, y].IsWalkable = false;                 tiles[x, y].GetComponent<SpriteRenderer>().sprite = blocked;              }
+            blocked = Resources.Load<Sprite>("blocked");
+
+            int percentage = (int)((gridY * gridX) * (0.25));
+            for (int i = 0; i < percentage; i++)
+            {
+                int x = (int)UnityEngine.Random.Range(0, gridX);
+                int y = (int)UnityEngine.Random.Range(0, gridY);
+                tiles[x, y].IsWalkable = false;
+                tiles[x, y].GetComponent<SpriteRenderer>().sprite = blocked;
+
+            }
         }
 
         /// <summary>
@@ -168,61 +178,47 @@ namespace AStar_2D.Demo
 
         private void RecognizedShowWeb(PhraseRecognizedEventArgs speech)
         {
-            keywordRecognizer2.Stop();
+            //keywordRecognizer.Stop();
             Debug.Log(speech.text);
-            mostrarTelaraña = true;
-            onTileHover(ReturnTile(tileX, tileY));
-            Update();
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedShowWeb;
+            cambiarEstadoTelaraña(true);
+            keywordRecognizer.OnPhraseRecognized -= RecognizedShowWeb;
         }
 
         private void RecognizedHideWeb(PhraseRecognizedEventArgs speech)
         {
-            keywordRecognizer2.Stop();
+            //keywordRecognizer.Stop();
             Debug.Log(speech.text);
-            mostrarTelaraña = false;
-            onTileHover(ReturnTile(tileX, tileY));
-            Update();
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedHideWeb;
+            cambiarEstadoTelaraña(false);
+            keywordRecognizer.OnPhraseRecognized -= RecognizedHideWeb;
         }
 
         private void RecognizedDeactivateDiagonals(PhraseRecognizedEventArgs speech)
         {
-            keywordRecognizer2.Stop();
             Debug.Log(speech.text);
-            for (int i = 0; i < gridX; i++)
-            {
-                for (int j = 0; j < gridY; j++)
-                {
-                    tiles[i, j].diagonalMode = PathNodeDiagonalMode.NoDiagonal;
-                }
-            }
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedDeactivateDiagonals;
+            //keywordRecognizer.Stop();
+            cambioDiagonales(true);
+            keywordRecognizer.OnPhraseRecognized -= RecognizedDeactivateDiagonals;
         }
 
         private void RecognizedActivateDiagonals(PhraseRecognizedEventArgs speech)
         {
-            keywordRecognizer2.Stop();
             Debug.Log(speech.text);
-            for (int i = 0; i < gridX; i++)
-            {
-                for (int j = 0; j < gridY; j++)
-                {
-                    tiles[i, j].diagonalMode = PathNodeDiagonalMode.Diagonal;
-                }
-            }
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedActivateDiagonals;
+            //keywordRecognizer.Stop();
+            cambioDiagonales(false);
+            keywordRecognizer.OnPhraseRecognized -= RecognizedActivateDiagonals;
         }
 
         private void Move()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
+            //keywordRecognizer.Stop();
             keywordRecognizer2.OnPhraseRecognized += RecognizedSpeechX;
             keywordRecognizer2.Start();
         }
         private void CreateCity()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
+            //keywordRecognizer.Stop();
             keywordRecognizer2.OnPhraseRecognized += RecognizedCitySizeX;
             keywordRecognizer2.Start();
         }
@@ -230,34 +226,65 @@ namespace AStar_2D.Demo
         private void destinoCity()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
+            //keywordRecognizer.Stop();
             keywordRecognizer2.OnPhraseRecognized += RecognizedDestinationSizeX;
             keywordRecognizer2.Start();
         }
         private void showWeb()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            keywordRecognizer2.OnPhraseRecognized += RecognizedShowWeb;
-            keywordRecognizer2.Start();
+            //keywordRecognizer.Stop();
+            keywordRecognizer.OnPhraseRecognized += RecognizedShowWeb;
+            //keywordRecognizer.Start();
         }
         private void hideWeb()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            keywordRecognizer2.OnPhraseRecognized += RecognizedHideWeb;
-            keywordRecognizer2.Start();
+            //keywordRecognizer.Stop();
+            keywordRecognizer.OnPhraseRecognized += RecognizedHideWeb;
+            //keywordRecognizer.Start();
         }
 
         private void deactivateDiagonals()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            keywordRecognizer2.OnPhraseRecognized += RecognizedDeactivateDiagonals;
-            keywordRecognizer2.Start();
+            //keywordRecognizer.Stop();
+            keywordRecognizer.OnPhraseRecognized += RecognizedDeactivateDiagonals;
+            //keywordRecognizer.Start();
         }
 
         private void activateDiagonals()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            keywordRecognizer2.OnPhraseRecognized += RecognizedActivateDiagonals;
-            keywordRecognizer2.Start();
+            keywordRecognizer.Stop();
+            keywordRecognizer.OnPhraseRecognized += RecognizedActivateDiagonals;
+            keywordRecognizer.Start();
+        }
+
+
+        private void cambiarEstadoTelaraña(bool var)
+        {
+            mostrarTelaraña = var;
+            onTileHover(ReturnTile(tileX, tileY));
+            Update();
+        }
+
+        private void cambioDiagonales(bool cambio)
+        {
+            for (int i = 0; i < gridX; i++)
+            {
+                for (int j = 0; j < gridY; j++)
+                {
+                    if (cambio)
+                    {
+                        tiles[i, j].diagonalMode = PathNodeDiagonalMode.NoDiagonal;
+                    }
+                    else
+                    {
+                        tiles[i, j].diagonalMode = PathNodeDiagonalMode.Diagonal;
+                    }
+                }
+            }
         }
 
         public Sprite building;
@@ -297,7 +324,7 @@ namespace AStar_2D.Demo
             {
                 y -= 1;
             }
-            agentS.transform.position = new Vector3(ReturnTile(x,y).transform.position.x,(ReturnTile(x, gridY - y).transform.position.y), 0);
+            agentS.transform.position = new Vector3(ReturnTile(x,y).transform.position.x,(ReturnTile(x,  y).transform.position.y), 0);
             
         }
 
@@ -382,7 +409,7 @@ namespace AStar_2D.Demo
             // Find the first agent
             Agent agent = Component.FindObjectOfType<Agent>();
 
-            if (true)
+            if (mostrarTelaraña)
             {
 
                 if (agent != null)
