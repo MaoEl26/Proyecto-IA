@@ -73,7 +73,17 @@ public class EditorTilemap : AStarGrid
             // Create the grid
             constructGrid(tiles);
 
-            blocked = Resources.Load<Sprite>("blocked");              int percentage = (int)((gridWidth * gridWidth) * (0.2));             for (int i = 0; i < percentage; i++)             {                 int x = (int)Random.Range(0, gridWidth);                 int y = (int)Random.Range(0, gridWidth);                 tiles[x, y].IsWalkable = false;                 tiles[x, y].GetComponent<SpriteRenderer>().sprite = blocked;              }
+            blocked = Resources.Load<Sprite>("blocked");
+
+            int percentage = (int)((gridWidth * gridWidth) * (0.2));
+            for (int i = 0; i < percentage; i++)
+            {
+                int x = (int)Random.Range(0, gridWidth);
+                int y = (int)Random.Range(0, gridWidth);
+                tiles[x, y].IsWalkable = false;
+                tiles[x, y].GetComponent<SpriteRenderer>().sprite = blocked;
+
+            }
         }
     }
 

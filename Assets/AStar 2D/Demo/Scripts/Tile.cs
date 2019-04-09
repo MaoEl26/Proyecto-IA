@@ -19,8 +19,8 @@ namespace AStar_2D.Demo
         /// Delegate used when tiles are selected by a mouse click.
         /// </summary>
         /// <param name="tile">The tile that was clicked.</param>
-        /// <param name="mouseButton">The mouse button that was pressed</param>
-        public delegate void TileSelectedDelegate(Tile tile, int mouseButton);
+        /// <param name="intVal">The mouse button that was pressed</param>
+        public delegate void TileSelected(Tile tile, int intVal);
 
         /// <summary>
         /// Delegate used when tiles are hovered by the mouse
@@ -33,7 +33,7 @@ namespace AStar_2D.Demo
         /// Event that triggers when this tile has been selected a mouse click.
         /// Informs the tile manager so that the appropriate action can be taken.
         /// </summary>
-        public event TileSelectedDelegate onTileSelected;
+        public TileSelected onTileSelected;
 
         /// <summary>
         /// Event that triggers when this tile is hovered by the mouse.
@@ -47,7 +47,7 @@ namespace AStar_2D.Demo
 
         [SerializeField]
         private bool walkable = true;
-        private bool canSend = true;
+        public bool canSend = true;
         private float lastTime = 0;
         
         // Public
@@ -144,14 +144,14 @@ namespace AStar_2D.Demo
         /// <summary>
         /// Called by Unity.
         /// </summary>
-        public void OnMouseOver()
+        public void OnMouseExit()
         {
             // Make sure events can be sent
             if (canSend == false)
                 return;
 
             // Check for mouse button
-            if(Input.GetMouseButtonDown(0) == true)
+            if(true)
             {
                 // Block message sending
                 canSend = false;
@@ -160,7 +160,7 @@ namespace AStar_2D.Demo
                 if (onTileSelected != null)
                     onTileSelected(this, 0);
             }
-            else if(Input.GetMouseButtonDown(1) == true)
+            /*else if(Input.GetMouseButtonDown(1) == true)
             {
                 // Block message sending
                 canSend = false;
@@ -168,7 +168,7 @@ namespace AStar_2D.Demo
                 // Trigger the event
                 if (onTileSelected != null)
                     onTileSelected(this, 1);
-            }
+            }*/
         }
 
         /// <summary>

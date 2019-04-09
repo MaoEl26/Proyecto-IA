@@ -155,6 +155,7 @@ namespace AStar_2D.Demo
             actions.Add("Desactivar Diagonales", deactivateDiagonals);
             actions.Add("Activar Diagonales", activateDiagonals);
             actions.Add("Modificar Ciudad", modifyCity);
+            actions.Add("Iniciar", caminar);
             for (int i = 1; i < 30; i++)
             {
                 dic.Add(Convert.ToString(i));
@@ -176,7 +177,7 @@ namespace AStar_2D.Demo
 
         private void RecognizedSpeechX(PhraseRecognizedEventArgs speech)
         {
-            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoColumna");
+            FindObjectOfType<AudioManager>().Play("filaInicio");
             Debug.Log(speech.text);
             x = Convert.ToInt32(speech.text);
             keywordRecognizer2.OnPhraseRecognized -= RecognizedSpeechX;
@@ -188,12 +189,14 @@ namespace AStar_2D.Demo
             y = Convert.ToInt32(speech.text);
             keywordRecognizer2.Stop();
             Mueve(x, y);
+            FindObjectOfType<AudioManager>().Play("posInicioModif");
             keywordRecognizer2.OnPhraseRecognized -= RecognizedSpeechY;
         }
         private void RecognizedCitySizeX(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
             gridX = Convert.ToInt32(speech.text);
+            FindObjectOfType<AudioManager>().Play("largoCiudad");
             keywordRecognizer2.OnPhraseRecognized -= RecognizedCitySizeX;
             keywordRecognizer2.OnPhraseRecognized += RecognizedCitySizeY;
         }
@@ -203,6 +206,7 @@ namespace AStar_2D.Demo
             gridY = Convert.ToInt32(speech.text);
             keywordRecognizer2.Stop();
             Inicio();
+            FindObjectOfType<AudioManager>().Play("creandoCiudad");
             keywordRecognizer2.OnPhraseRecognized -= RecognizedCitySizeY;
         }
 
@@ -210,6 +214,7 @@ namespace AStar_2D.Demo
         {
             Debug.Log(speech.text);
             gridX = Convert.ToInt32(speech.text);
+            FindObjectOfType<AudioManager>().Play("filaInicio");
             keywordRecognizer2.OnPhraseRecognized -= RecognizedModifyCityX;
             keywordRecognizer2.OnPhraseRecognized += RecognizedModifyCityY;
         }
@@ -219,6 +224,7 @@ namespace AStar_2D.Demo
             gridY = Convert.ToInt32(speech.text);
             keywordRecognizer2.Stop();
             Inicio();
+            FindObjectOfType<AudioManager>().Play("creandoCiudad");
             keywordRecognizer2.OnPhraseRecognized -= RecognizedModifyCityY;
         }
 
@@ -234,6 +240,15 @@ namespace AStar_2D.Demo
             Debug.Log(speech.text);
             cambiarEstadoTelaraña(false);
             keywordRecognizer.OnPhraseRecognized -= RecognizedHideWeb;
+        }
+
+        private void RecognizedCaminar(PhraseRecognizedEventArgs speech)
+        {
+            Debug.Log(speech.text);
+            Tile temp = ReturnTile(tileX, tileY);
+            temp.OnMouseExit();
+            //onTileSelected(temp, 0);
+            keywordRecognizer.OnPhraseRecognized -= RecognizedCaminar;
         }
 
         private void RecognizedDeactivateDiagonals(PhraseRecognizedEventArgs speech)
@@ -254,14 +269,14 @@ namespace AStar_2D.Demo
 
         private void Move()
         {
-            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
+            FindObjectOfType<AudioManager>().Play("colInicio");
 
             keywordRecognizer2.OnPhraseRecognized += RecognizedSpeechX;
             keywordRecognizer2.Start();
         }
         private void CreateCity()
         {
-            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
+            FindObjectOfType<AudioManager>().Play("AnchoCiudad");
 
             keywordRecognizer2.OnPhraseRecognized += RecognizedCitySizeX;
             keywordRecognizer2.Start();
@@ -269,36 +284,39 @@ namespace AStar_2D.Demo
 
         private void destinoCity()
         {
-            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-
+            FindObjectOfType<AudioManager>().Play("colDest");
             keywordRecognizer2.OnPhraseRecognized += RecognizedDestinationSizeX;
             keywordRecognizer2.Start();
         }
         private void showWeb()
         {
-            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-
+            FindObjectOfType<AudioManager>().Play("telarañaMostrar");
             keywordRecognizer.OnPhraseRecognized += RecognizedShowWeb;
 
         }
         private void hideWeb()
         {
-            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-
+            FindObjectOfType<AudioManager>().Play("limpiandoRuta");
             keywordRecognizer.OnPhraseRecognized += RecognizedHideWeb;
+
+        }
+
+        private void caminar()
+        {
+            //FindObjectOfType<AudioManager>().Play("limpiandoRuta");
+            keywordRecognizer.OnPhraseRecognized += RecognizedCaminar;
 
         }
 
         private void deactivateDiagonals()
         {
-            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-
+            FindObjectOfType<AudioManager>().Play("desDiag");
             keywordRecognizer.OnPhraseRecognized += RecognizedDeactivateDiagonals;
         }
 
         private void activateDiagonals()
         {
-            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
+            FindObjectOfType<AudioManager>().Play("actDiag");
             keywordRecognizer.OnPhraseRecognized += RecognizedActivateDiagonals;
 
         }
@@ -306,7 +324,7 @@ namespace AStar_2D.Demo
         private void modifyCity()
         {
             clear();
-            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
+            FindObjectOfType<AudioManager>().Play("AnchoCiudad");
             keywordRecognizer2.OnPhraseRecognized += RecognizedModifyCityX;
             keywordRecognizer2.Start();
 
@@ -342,7 +360,9 @@ namespace AStar_2D.Demo
         private void RecognizedDestinationSizeX(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
+            FindObjectOfType<AudioManager>().Play("filaInicio");
             building = Resources.Load<Sprite>("building");
+            
             if (ReturnTile(tileX - 1, tileY - 1).IsWalkable == true)
             {
                 ReturnTile(tileX - 1, tileY - 1).GetComponent<SpriteRenderer>().sprite = building;
@@ -366,6 +386,7 @@ namespace AStar_2D.Demo
                 final = Resources.Load<Sprite>("final");
 
                 temp.GetComponent<SpriteRenderer>().sprite = final;
+                FindObjectOfType<AudioManager>().Play("posDestinoModif");
             }
             else
             {
