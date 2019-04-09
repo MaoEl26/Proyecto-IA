@@ -343,7 +343,10 @@ namespace AStar_2D.Demo
         {
             Debug.Log(speech.text);
             building = Resources.Load<Sprite>("building");
-            ReturnTile(tileX - 1, tileY - 1).GetComponent<SpriteRenderer>().sprite = building;
+            if (ReturnTile(tileX - 1, tileY - 1).IsWalkable == true)
+            {
+                ReturnTile(tileX - 1, tileY - 1).GetComponent<SpriteRenderer>().sprite = building;
+            }
             tileX = Convert.ToInt32(speech.text);
             keywordRecognizer2.OnPhraseRecognized -= RecognizedDestinationSizeX;
             keywordRecognizer2.OnPhraseRecognized += RecognizedDestinationSizeY;
