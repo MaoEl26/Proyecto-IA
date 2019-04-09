@@ -63,6 +63,7 @@ namespace AStar_2D.Demo
         public Sprite blocked;
         public void Inicio()
         {
+            //clear();
             base.Awake();
 
             tiles = new Tile[gridX, gridY];
@@ -108,6 +109,34 @@ namespace AStar_2D.Demo
                 tiles[x, y].GetComponent<SpriteRenderer>().sprite = blocked;
 
             }
+
+            posInicio();
+        }
+
+        private void posInicio()
+        {
+            Tile temp = ReturnTile(UnityEngine.Random.Range(0, gridX - 1), UnityEngine.Random.Range(0, gridY - 1));
+            if (!temp.IsWalkable)
+            {
+                posInicio();
+            }
+            agentS.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y, 0);
+        }
+
+        private void clear()
+        {
+            //x = 0;
+            //y = 0;
+            //tileX = 1;
+            //tileY = 1;
+            //agentS = new Agent();
+            //mostrarTelaraña = false;
+            tiles = null;
+            //Debug.Log(tiles.Length);
+            base.rebuildGraph();
+            base.StopAllCoroutines();
+            //currentPath = null;
+            //painter = null;
         }
 
         /// <summary>
@@ -125,6 +154,7 @@ namespace AStar_2D.Demo
             actions.Add("Ocultar telaraña", hideWeb);
             actions.Add("Desactivar Diagonales", deactivateDiagonals);
             actions.Add("Activar Diagonales", activateDiagonals);
+            actions.Add("Modificar Ciudad", modifyCity);
             for (int i = 1; i < 30; i++)
             {
                 dic.Add(Convert.ToString(i));
@@ -176,9 +206,24 @@ namespace AStar_2D.Demo
             keywordRecognizer2.OnPhraseRecognized -= RecognizedCitySizeY;
         }
 
+        private void RecognizedModifyCityX(PhraseRecognizedEventArgs speech)
+        {
+            Debug.Log(speech.text);
+            gridX = Convert.ToInt32(speech.text);
+            keywordRecognizer2.OnPhraseRecognized -= RecognizedModifyCityX;
+            keywordRecognizer2.OnPhraseRecognized += RecognizedModifyCityY;
+        }
+        private void RecognizedModifyCityY(PhraseRecognizedEventArgs speech)
+        {
+            Debug.Log(speech.text);
+            gridY = Convert.ToInt32(speech.text);
+            keywordRecognizer2.Stop();
+            Inicio();
+            keywordRecognizer2.OnPhraseRecognized -= RecognizedModifyCityY;
+        }
+
         private void RecognizedShowWeb(PhraseRecognizedEventArgs speech)
         {
-            //keywordRecognizer.Stop();
             Debug.Log(speech.text);
             cambiarEstadoTelaraña(true);
             keywordRecognizer.OnPhraseRecognized -= RecognizedShowWeb;
@@ -186,7 +231,6 @@ namespace AStar_2D.Demo
 
         private void RecognizedHideWeb(PhraseRecognizedEventArgs speech)
         {
-            //keywordRecognizer.Stop();
             Debug.Log(speech.text);
             cambiarEstadoTelaraña(false);
             keywordRecognizer.OnPhraseRecognized -= RecognizedHideWeb;
@@ -195,7 +239,7 @@ namespace AStar_2D.Demo
         private void RecognizedDeactivateDiagonals(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
-            //keywordRecognizer.Stop();
+
             cambioDiagonales(true);
             keywordRecognizer.OnPhraseRecognized -= RecognizedDeactivateDiagonals;
         }
@@ -203,7 +247,7 @@ namespace AStar_2D.Demo
         private void RecognizedActivateDiagonals(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
-            //keywordRecognizer.Stop();
+
             cambioDiagonales(false);
             keywordRecognizer.OnPhraseRecognized -= RecognizedActivateDiagonals;
         }
@@ -211,14 +255,14 @@ namespace AStar_2D.Demo
         private void Move()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            //keywordRecognizer.Stop();
+
             keywordRecognizer2.OnPhraseRecognized += RecognizedSpeechX;
             keywordRecognizer2.Start();
         }
         private void CreateCity()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            //keywordRecognizer.Stop();
+
             keywordRecognizer2.OnPhraseRecognized += RecognizedCitySizeX;
             keywordRecognizer2.Start();
         }
@@ -226,47 +270,53 @@ namespace AStar_2D.Demo
         private void destinoCity()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            //keywordRecognizer.Stop();
+
             keywordRecognizer2.OnPhraseRecognized += RecognizedDestinationSizeX;
             keywordRecognizer2.Start();
         }
         private void showWeb()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            //keywordRecognizer.Stop();
+
             keywordRecognizer.OnPhraseRecognized += RecognizedShowWeb;
-            //keywordRecognizer.Start();
+
         }
         private void hideWeb()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            //keywordRecognizer.Stop();
+
             keywordRecognizer.OnPhraseRecognized += RecognizedHideWeb;
-            //keywordRecognizer.Start();
+
         }
 
         private void deactivateDiagonals()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            //keywordRecognizer.Stop();
+
             keywordRecognizer.OnPhraseRecognized += RecognizedDeactivateDiagonals;
-            //keywordRecognizer.Start();
         }
 
         private void activateDiagonals()
         {
             //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
-            keywordRecognizer.Stop();
             keywordRecognizer.OnPhraseRecognized += RecognizedActivateDiagonals;
-            keywordRecognizer.Start();
+
         }
 
+        private void modifyCity()
+        {
+            clear();
+            //FindObjectOfType<AudioManager>().Play("SpidermanDestinoFila");
+            keywordRecognizer2.OnPhraseRecognized += RecognizedModifyCityX;
+            keywordRecognizer2.Start();
+
+        }
 
         private void cambiarEstadoTelaraña(bool var)
         {
             mostrarTelaraña = var;
-            onTileHover(ReturnTile(tileX, tileY));
-            Update();
+            //base.Update();
+            //Update();
         }
 
         private void cambioDiagonales(bool cambio)
@@ -285,6 +335,7 @@ namespace AStar_2D.Demo
                     }
                 }
             }
+            base.Update();
         }
 
         public Sprite building;
@@ -303,14 +354,20 @@ namespace AStar_2D.Demo
             Debug.Log(speech.text);
             tileY = Convert.ToInt32(speech.text);
             keywordRecognizer2.Stop();
-            painter = null;
-            onTileHover(ReturnTile(tileX-1, tileY-1));
+            Tile temp = ReturnTile(tileX - 1, tileY - 1);
+            if (temp.IsWalkable)
+            {
+                painter = null;
+                onTileHover(temp);
 
-            final = Resources.Load<Sprite>("final");
+                final = Resources.Load<Sprite>("final");
 
-            ReturnTile(tileX - 1, tileY - 1).GetComponent<SpriteRenderer>().sprite = final;
-
-
+                temp.GetComponent<SpriteRenderer>().sprite = final;
+            }
+            else
+            {
+                //error
+            }
             keywordRecognizer2.OnPhraseRecognized -= RecognizedDestinationSizeY;
         }
 
@@ -325,7 +382,7 @@ namespace AStar_2D.Demo
                 y -= 1;
             }
             agentS.transform.position = new Vector3(ReturnTile(x,y).transform.position.x,(ReturnTile(x,  y).transform.position.y), 0);
-            
+            //agentS.setDestination(ReturnTile(x, y).WorldPosition);
         }
 
         /// <summary>
@@ -397,6 +454,7 @@ namespace AStar_2D.Demo
 
         private void onTileHover(Tile tile)
         {
+            
             // Check for a valid painter
             if(painter != null)
             {
@@ -423,6 +481,8 @@ namespace AStar_2D.Demo
                     });
                 }
             }
+
+            base.Update();
         }
     }
 }
