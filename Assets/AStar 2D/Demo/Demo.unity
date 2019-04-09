@@ -201,7 +201,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 46eb4649fded5cc449515826d4562825, type: 3}
     volume: 1
     source: {fileID: 0}
-  - name: ColSpiNoValDestino
+  - name: errorColDestino
     clip: {fileID: 8300000, guid: 6271aa20cbe087a47bcdaf53a5e53c47, type: 3}
     volume: 1
     source: {fileID: 0}
