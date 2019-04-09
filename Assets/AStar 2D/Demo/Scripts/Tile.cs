@@ -140,18 +140,13 @@ namespace AStar_2D.Demo
             if (onTileHover != null)
                 onTileHover(this);
         }
-
-        /// <summary>
-        /// Called by Unity.
-        /// </summary>
-        public void OnMouseExit()
-        {
+        public void move() {
             // Make sure events can be sent
             if (canSend == false)
                 return;
 
             // Check for mouse button
-            if(true)
+            if (true)
             {
                 // Block message sending
                 canSend = false;
@@ -160,6 +155,26 @@ namespace AStar_2D.Demo
                 if (onTileSelected != null)
                     onTileSelected(this, 0);
             }
+        }
+        /// <summary>
+        /// Called by Unity.
+        /// </summary>
+        public void OnMouseOver()
+        {
+            // Make sure events can be sent
+            if (canSend == false)
+                return;
+
+            // Check for mouse button
+            //if(true)
+            //{
+                // Block message sending
+                canSend = false;
+
+                // Trigger the event
+                if (onTileSelected != null)
+                    onTileSelected(this, 0);
+            //}
             /*else if(Input.GetMouseButtonDown(1) == true)
             {
                 // Block message sending

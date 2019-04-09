@@ -156,7 +156,7 @@ namespace AStar_2D.Demo
             actions.Add("Activar Diagonales", activateDiagonals);
             actions.Add("Modificar Ciudad", modifyCity);
             actions.Add("Iniciar", caminar);
-            for (int i = 1; i < 30; i++)
+            for (int i = 1; i < 31; i++)
             {
                 dic.Add(Convert.ToString(i));
             }
@@ -177,55 +177,105 @@ namespace AStar_2D.Demo
 
         private void RecognizedSpeechX(PhraseRecognizedEventArgs speech)
         {
-            FindObjectOfType<AudioManager>().Play("filaInicio");
+           
             Debug.Log(speech.text);
             x = Convert.ToInt32(speech.text);
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedSpeechX;
-            keywordRecognizer2.OnPhraseRecognized += RecognizedSpeechY;
+            if (x <= gridX)
+            {
+                FindObjectOfType<AudioManager>().Play("filaInicio");
+                keywordRecognizer2.OnPhraseRecognized -= RecognizedSpeechX;
+                keywordRecognizer2.OnPhraseRecognized += RecognizedSpeechY;
+            }
+            else
+            {
+                FindObjectOfType<AudioManager>().Play("errorFilaInicio");
+            }
         }
         private void RecognizedSpeechY(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
             y = Convert.ToInt32(speech.text);
-            keywordRecognizer2.Stop();
-            Mueve(x, y);
-            FindObjectOfType<AudioManager>().Play("posInicioModif");
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedSpeechY;
+            if (y <= gridY)
+            {
+                Tile temp = ReturnTile(x-1, y-1);
+                if (temp.IsWalkable)
+                {
+                    keywordRecognizer2.Stop();
+                    Mueve(x, y);
+                    FindObjectOfType<AudioManager>().Play("posInicioModif");
+                    keywordRecognizer2.OnPhraseRecognized -= RecognizedSpeechY;
+                }
+                else
+                {
+                    FindObjectOfType<AudioManager>().Play("errorFilaInicio");
+                }
+            }
+            else {
+                FindObjectOfType<AudioManager>().Play("errorFilaInicio");
+            }
         }
         private void RecognizedCitySizeX(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
             gridX = Convert.ToInt32(speech.text);
-            FindObjectOfType<AudioManager>().Play("largoCiudad");
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedCitySizeX;
-            keywordRecognizer2.OnPhraseRecognized += RecognizedCitySizeY;
+            if (gridX < 31)
+            {
+                FindObjectOfType<AudioManager>().Play("largoCiudad");
+                keywordRecognizer2.OnPhraseRecognized -= RecognizedCitySizeX;
+                keywordRecognizer2.OnPhraseRecognized += RecognizedCitySizeY;
+            }
+            else {
+                FindObjectOfType<AudioManager>().Play("errorLargo");
+            }
         }
         private void RecognizedCitySizeY(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
             gridY = Convert.ToInt32(speech.text);
-            keywordRecognizer2.Stop();
-            Inicio();
-            FindObjectOfType<AudioManager>().Play("creandoCiudad");
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedCitySizeY;
+            if (gridY < 31)
+            {
+                keywordRecognizer2.Stop();
+                Inicio();
+                FindObjectOfType<AudioManager>().Play("creandoCiudad");
+                keywordRecognizer2.OnPhraseRecognized -= RecognizedCitySizeY;
+            }
+            else
+            {
+                FindObjectOfType<AudioManager>().Play("AnchoCiudadNoValido");
+
+            }
         }
 
         private void RecognizedModifyCityX(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
             gridX = Convert.ToInt32(speech.text);
-            FindObjectOfType<AudioManager>().Play("filaInicio");
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedModifyCityX;
-            keywordRecognizer2.OnPhraseRecognized += RecognizedModifyCityY;
+            if (gridX < 31)
+            {
+                FindObjectOfType<AudioManager>().Play("filaInicio");
+                keywordRecognizer2.OnPhraseRecognized -= RecognizedModifyCityX;
+                keywordRecognizer2.OnPhraseRecognized += RecognizedModifyCityY;
+            }
+            else
+            {
+                FindObjectOfType<AudioManager>().Play("errorLargo");
+            }
         }
         private void RecognizedModifyCityY(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
             gridY = Convert.ToInt32(speech.text);
-            keywordRecognizer2.Stop();
-            Inicio();
-            FindObjectOfType<AudioManager>().Play("creandoCiudad");
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedModifyCityY;
+            if (gridY < 31)
+            {
+                keywordRecognizer2.Stop();
+                Inicio();
+                FindObjectOfType<AudioManager>().Play("creandoCiudad");
+                keywordRecognizer2.OnPhraseRecognized -= RecognizedModifyCityY;
+            }
+            else
+            {
+                FindObjectOfType<AudioManager>().Play("AnchoCiudadNoValido");
+            }
         }
 
         private void RecognizedShowWeb(PhraseRecognizedEventArgs speech)
@@ -246,7 +296,9 @@ namespace AStar_2D.Demo
         {
             Debug.Log(speech.text);
             Tile temp = ReturnTile(tileX, tileY);
-            temp.OnMouseExit();
+            temp.OnMouseOver();
+            //Update();
+            //Update();
             //onTileSelected(temp, 0);
             keywordRecognizer.OnPhraseRecognized -= RecognizedCaminar;
         }
@@ -360,39 +412,53 @@ namespace AStar_2D.Demo
         private void RecognizedDestinationSizeX(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
-            FindObjectOfType<AudioManager>().Play("filaInicio");
-            building = Resources.Load<Sprite>("building");
-            
-            if (ReturnTile(tileX - 1, tileY - 1).IsWalkable == true)
+            if (x <= gridX)
             {
-                ReturnTile(tileX - 1, tileY - 1).GetComponent<SpriteRenderer>().sprite = building;
+                FindObjectOfType<AudioManager>().Play("filaDest");
+                building = Resources.Load<Sprite>("building");
+
+                if (ReturnTile(tileX - 1, tileY - 1).IsWalkable == true)
+                {
+                    ReturnTile(tileX - 1, tileY - 1).GetComponent<SpriteRenderer>().sprite = building;
+                }
+                tileX = Convert.ToInt32(speech.text);
+                keywordRecognizer2.OnPhraseRecognized -= RecognizedDestinationSizeX;
+                keywordRecognizer2.OnPhraseRecognized += RecognizedDestinationSizeY;
             }
-            tileX = Convert.ToInt32(speech.text);
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedDestinationSizeX;
-            keywordRecognizer2.OnPhraseRecognized += RecognizedDestinationSizeY;
+            else {
+
+                FindObjectOfType<AudioManager>().Play("errorFilaDestino");
+            }
         }
         public Sprite final;
         private void RecognizedDestinationSizeY(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
             tileY = Convert.ToInt32(speech.text);
-            keywordRecognizer2.Stop();
-            Tile temp = ReturnTile(tileX - 1, tileY - 1);
-            if (temp.IsWalkable)
+            if (y <= gridY)
             {
-                painter = null;
-                onTileHover(temp);
+                keywordRecognizer2.Stop();
+                Tile temp = ReturnTile(tileX - 1, tileY - 1);
+                if (temp.IsWalkable)
+                {
+                    painter = null;
+                    onTileHover(temp);
 
-                final = Resources.Load<Sprite>("final");
+                    final = Resources.Load<Sprite>("final");
 
-                temp.GetComponent<SpriteRenderer>().sprite = final;
-                FindObjectOfType<AudioManager>().Play("posDestinoModif");
+                    temp.GetComponent<SpriteRenderer>().sprite = final;
+                    FindObjectOfType<AudioManager>().Play("posDestinoModif");
+                    keywordRecognizer2.OnPhraseRecognized -= RecognizedDestinationSizeY;
+                }
+                else
+                {
+                    FindObjectOfType<AudioManager>().Play("errorColDestino");
+                }
+                
             }
-            else
-            {
-                //error
+            else {
+                FindObjectOfType<AudioManager>().Play("errorColDestino");
             }
-            keywordRecognizer2.OnPhraseRecognized -= RecognizedDestinationSizeY;
         }
 
         private void Mueve(int x, int y)

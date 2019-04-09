@@ -192,290 +192,130 @@ MonoBehaviour:
   - name: AnchoCiudad
     clip: {fileID: 8300000, guid: 879a749543fea0744a3b42f9b3b6c73d, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: DimEdiNoVal
     clip: {fileID: 8300000, guid: a15b5695496db314d8abb9f4dc695f00, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: AnchoCiudadNoValido
     clip: {fileID: 8300000, guid: 46eb4649fded5cc449515826d4562825, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: ColSpiNoValDestino
     clip: {fileID: 8300000, guid: 6271aa20cbe087a47bcdaf53a5e53c47, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: colObstaculo
     clip: {fileID: 8300000, guid: bd00942ec8f0d5646a7a6225cc10cf4c, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: creandoCiudad
     clip: {fileID: 8300000, guid: bf54f0fb911d4ec4c9a6208b8b7eadc2, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: modifObstaculo
     clip: {fileID: 8300000, guid: 72a88f537e33e244e90b15ef9f1aaae8, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: colDest
     clip: {fileID: 8300000, guid: 4ac21b8839fa64d4ebc9d7626731f814, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: actDiag
     clip: {fileID: 8300000, guid: 2e9ac1cc314c4854ebef8fae7042ff07, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: desDiag
     clip: {fileID: 8300000, guid: d05f6aef1bd67e340bd914cbd2fd0cae, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: filaDest
-    clip: {fileID: 8300000, guid: e7a295af697f84d428c874c2330e8ced, type: 3}
-    volume: 0
-    volumeVariance: 0
-    pitch: 0
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
+    clip: {fileID: 8300000, guid: 916e7b21e6d28c643960fd8ed0e58401, type: 3}
+    volume: 1
     source: {fileID: 0}
   - name: errorFilaInicio
     clip: {fileID: 8300000, guid: c7e44c48b1276054ab95b040d3ec1b45, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: errorFilaDestino
     clip: {fileID: 8300000, guid: ffc0803232685e9448dad74b92818efe, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: filaObstaculo
     clip: {fileID: 8300000, guid: de23e1e99b852be47a8fa3466b528743, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: colInicio
     clip: {fileID: 8300000, guid: a9bb58061823d514598ece5a2aedea0a, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: filaInicio
     clip: {fileID: 8300000, guid: 1fbb6c6a511c5ad45b55e9982964d980, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: largoCiudad
     clip: {fileID: 8300000, guid: 9eccfdc74940b6c4bb6cfcdfd3b65cd9, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: errorLargoEdi
     clip: {fileID: 8300000, guid: 3b79e5e0575d35d48848fc157eeea36f, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: errorLargo
     clip: {fileID: 8300000, guid: aab356e1fa926cc4b971df104e8e7a3a, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: limpiandoRuta
     clip: {fileID: 8300000, guid: d7728e5871ea5ac478f6594484cae166, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: "telara\xF1aMostrar"
     clip: {fileID: 8300000, guid: 766cc08991794324b993ef1916f3279c, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: errorColObst
     clip: {fileID: 8300000, guid: f61acdbfd0e93774b9d95ad2d374ec49, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: creadoObstaculo
     clip: {fileID: 8300000, guid: aa875a92fa0d6fb42b0becda9e25bb25, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: eliminadoObstaculo
     clip: {fileID: 8300000, guid: f5b753426166ff34692b7ccca7d2138f, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: existenteObstaculo
     clip: {fileID: 8300000, guid: 1f0250ee439615d4aa35f9ae30b88981, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: errorFilaObst
     clip: {fileID: 8300000, guid: cca29f2dec9bb7b469540305c2eaf277, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: posDestinoModif
     clip: {fileID: 8300000, guid: 41de5f15c841ee142907d0db5a4f6495, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: posInicioModif
     clip: {fileID: 8300000, guid: faae6c0f80e81f44fa5b9fe4416f34eb, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: musica
     clip: {fileID: 8300000, guid: 0c3a5295a88429a46a3be23fcec7b93a, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: tamEdificio
     clip: {fileID: 8300000, guid: 4d66d4af22bf62e4e978c75458d7b986, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: valModif
     clip: {fileID: 8300000, guid: 653f392788ac41749b520f97ec36c82f, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: valModificar
     clip: {fileID: 8300000, guid: d7d9ddbf6585d0344b5244865a10cfd9, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 0.96
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
     source: {fileID: 0}
 --- !u!1 &874108677
 GameObject:
@@ -607,7 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualizeGrid: {fileID: 1602511335}
-  material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  material: {fileID: 2100000, guid: 5a8724d9c6fee4f8ca79fc59175b4a03, type: 2}
   width: 0.1
 --- !u!4 &1002927194
 Transform:
@@ -743,6 +583,85 @@ Transform:
   m_Children: []
   m_Father: {fileID: 435026158}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1220136934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1220136936}
+  - component: {fileID: 1220136935}
+  m_Layer: 0
+  m_Name: grass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1220136935
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220136934}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -325482747
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 0306e55a8aa1a421c80ff3e15c9d7c97, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.048, y: 2.048}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1220136936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220136934}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.071, y: -0.038, z: 0}
+  m_LocalScale: {x: 14.9623995, y: 7.16832, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1602511334
 GameObject:
