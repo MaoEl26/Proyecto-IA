@@ -8,6 +8,7 @@ using UnityEngine.Windows.Speech;
 using AStar_2D;
 using AStar_2D.Pathfinding;
 using System;
+using UnityEngine.SceneManagement;
 
 // Namespace
 namespace AStar_2D.Demo
@@ -25,16 +26,15 @@ namespace AStar_2D.Demo
         private WeightPainter painter = null;
         public KeywordRecognizer keywordRecognizer;
         public KeywordRecognizer keywordRecognizer2;
-        private Dictionary<string, Action> actions = new Dictionary<string, Action>();
-        private List<String> dic = new List<String>();
+        
         private int x = 0;
         private int y = 0;
         private int tileX = 1;
         private int tileY = 1;
         Agent agentS = new Agent();
         private bool mostrarTelaraña = false;
-            
-        
+
+        public ReconocimientoVoz recog;
 
         // Public
         /// <summary>
@@ -91,10 +91,6 @@ namespace AStar_2D.Demo
                 }
             }
 
-            
-
-                    //tiles[3, 3].diagonalMode = PathNodeDiagonalMode.NoDiagonal;
-
             // Pass the arry to the search grid
             constructGrid(tiles);
 
@@ -125,18 +121,9 @@ namespace AStar_2D.Demo
 
         private void clear()
         {
-            //x = 0;
-            //y = 0;
-            //tileX = 1;
-            //tileY = 1;
-            //agentS = new Agent();
-            //mostrarTelaraña = false;
+
             tiles = null;
-            //Debug.Log(tiles.Length);
-            base.rebuildGraph();
-            base.StopAllCoroutines();
-            //currentPath = null;
-            //painter = null;
+            //OnDestroy();
         }
 
         /// <summary>
@@ -147,32 +134,32 @@ namespace AStar_2D.Demo
             // Try to find the painter
             agentS = Component.FindObjectOfType<Agent>();
             painter = Component.FindObjectOfType<WeightPainter>();
-            actions.Add("Mover", Move);
-            actions.Add("Crear ciudad", CreateCity);
-            actions.Add("Elegir Destino", destinoCity);
-            actions.Add("Mostrar telaraña", showWeb);
-            actions.Add("Ocultar telaraña", hideWeb);
-            actions.Add("Desactivar Diagonales", deactivateDiagonals);
-            actions.Add("Activar Diagonales", activateDiagonals);
-            actions.Add("Modificar Ciudad", modifyCity);
-            actions.Add("Iniciar", caminar);
+            recog.actions.Add("Mover", Move);
+            recog.actions.Add("Crear ciudad", CreateCity);
+            recog.actions.Add("Elegir Destino", destinoCity);
+            recog.actions.Add("Mostrar telaraña", showWeb);
+            recog.actions.Add("Ocultar telaraña", hideWeb);
+            recog.actions.Add("Desactivar Diagonales", deactivateDiagonals);
+            recog.actions.Add("Activar Diagonales", activateDiagonals);
+            recog.actions.Add("Modificar Ciudad", modifyCity);
+            recog.actions.Add("Iniciar", caminar);
             for (int i = 1; i < 31; i++)
             {
-                dic.Add(Convert.ToString(i));
+                recog.dic.Add(Convert.ToString(i));
             }
 
-            keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
+            keywordRecognizer = new KeywordRecognizer(recog.actions.Keys.ToArray());
             keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
 
 
-            keywordRecognizer2 = new KeywordRecognizer(dic.ToArray());
+            keywordRecognizer2 = new KeywordRecognizer(recog.dic.ToArray());
             
             keywordRecognizer.Start();
         }
         private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
         {
             Debug.Log(speech.text);
-            actions[speech.text].Invoke();
+            recog.actions[speech.text].Invoke();
         }
 
         private void RecognizedSpeechX(PhraseRecognizedEventArgs speech)
@@ -204,6 +191,7 @@ namespace AStar_2D.Demo
                     Mueve(x, y);
                     FindObjectOfType<AudioManager>().Play("posInicioModif");
                     keywordRecognizer2.OnPhraseRecognized -= RecognizedSpeechY;
+                    keywordRecognizer.Start();
                 }
                 else
                 {
@@ -238,6 +226,7 @@ namespace AStar_2D.Demo
                 Inicio();
                 FindObjectOfType<AudioManager>().Play("creandoCiudad");
                 keywordRecognizer2.OnPhraseRecognized -= RecognizedCitySizeY;
+                keywordRecognizer.Start();
             }
             else
             {
@@ -269,8 +258,16 @@ namespace AStar_2D.Demo
             {
                 keywordRecognizer2.Stop();
                 Inicio();
-                FindObjectOfType<AudioManager>().Play("creandoCiudad");
+                keywordRecognizer.Stop();
                 keywordRecognizer2.OnPhraseRecognized -= RecognizedModifyCityY;
+                keywordRecognizer = null;
+                keywordRecognizer2 = null;
+                Scene scene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(scene.name);
+                Inicio();
+                FindObjectOfType<AudioManager>().Play("creandoCiudad");
+                
+                //keywordRecognizer.Start();
             }
             else
             {
@@ -322,14 +319,14 @@ namespace AStar_2D.Demo
         private void Move()
         {
             FindObjectOfType<AudioManager>().Play("colInicio");
-
+            keywordRecognizer.Stop();
             keywordRecognizer2.OnPhraseRecognized += RecognizedSpeechX;
             keywordRecognizer2.Start();
         }
         private void CreateCity()
         {
             FindObjectOfType<AudioManager>().Play("AnchoCiudad");
-
+            keywordRecognizer.Stop();
             keywordRecognizer2.OnPhraseRecognized += RecognizedCitySizeX;
             keywordRecognizer2.Start();
         }
@@ -376,6 +373,7 @@ namespace AStar_2D.Demo
         private void modifyCity()
         {
             clear();
+            keywordRecognizer.Stop();
             FindObjectOfType<AudioManager>().Play("AnchoCiudad");
             keywordRecognizer2.OnPhraseRecognized += RecognizedModifyCityX;
             keywordRecognizer2.Start();

@@ -167,11 +167,11 @@ namespace AStar_2D
                 searchGrid = AStarGridManager.DefaultGrid;
 
                 // Check for error
-                if (searchGrid == null)
-                {
+               if (searchGrid == null)
+               {
                     // Print a warning
-                    Debug.LogWarning(string.Format("Agent [{0}]: The are no AStar Grids in the scene. Pathfinding is not possible", gameObject.name));
-                }
+                Debug.LogWarning(string.Format("Agent [{0}]: The are no AStar Grids in the scene. Pathfinding is not possible", gameObject.name));
+               }
             }
         }
 
